@@ -34,8 +34,8 @@ bool readTransform(string  s, vector<cv::Mat>& rvecs, vector<cv::Mat>& tvecs)
 void readPara()
 {
 
-	const string outputFileName = "images\\out_camera_data.xml";	//®Õ¥¿¸ê°T
-	const string outputFileName2 = "images\\camera_data.xml";	//¹ïY¶b22.5«×Âà¤@°éªºR©MT
+	const string outputFileName = "images_pattern\\out_camera_data.xml";	//æ ¡æ­£è³‡è¨Š
+	const string outputFileName2 = "images_pattern\\camera_data.xml";	//å°Yè»¸22.5åº¦è½‰ä¸€åœˆçš„Rå’ŒT
 
 	Mat cameraMatrix, distCoeffs, cameraMatrix2, distCoeffs2;
 	vector<Mat> rvecs, tvecs, rvecs2, tvecs2;
@@ -56,14 +56,14 @@ void readPara()
 
 
 	}
-	if (!readTransform(outputFileName2, rvecs2, tvecs2))//¨ú±o¨C­ÓCameraªºrotation ©M transform
+	if (!readTransform(outputFileName2, rvecs2, tvecs2))//å–å¾—æ¯å€‹Cameraçš„rotation å’Œ transform
 	{
 
 	}
 
 	newpoints2.push_back(Point3f(25, 0, 0));
 	newMatrix2 = getOptimalNewCameraMatrix(cameraMatrix, distCoeffs, imageSize, 1, imageSize, 0);
-	projectPoints(Mat(newpoints2), rvecs2[15], tvecs2[15], newMatrix2, distCoeffs, distorted_points2d2);
+	projectPoints(Mat(newpoints2), rvecs2[1], tvecs2[1], newMatrix2, distCoeffs, distorted_points2d2);
 	Point2f pt2 = distorted_points2d2.at<Point2f>(0);
 	rectangle(qview2, cv::Rect(pt2.x - cBlockSize, pt2.y - cBlockSize, cBlockSize * 2 + 1, cBlockSize * 2 + 1), cc3);
 
@@ -472,7 +472,7 @@ int mymain(int argc, char* argv[])
 			remap(rview, nview, nmap1, nmap2, INTER_LINEAR);
 
 
-			//¦bÅÜ¥¿ªº«Ê­±¤W¹º½u
+			//åœ¨è®Šæ­£çš„å°é¢ä¸ŠåŠƒç·š
 			line(nview, Point2f(0, 0 * scale), Point2f(bw*scale, 0 * scale), Scalar(0, 0, 255), 2, 8);
 			line(nview, Point2f(0, 60 * scale), Point2f(bw*scale, 60 * scale), Scalar(0, 255, 0), 2, 8);
 			line(nview, Point2f(0, 77 * scale), Point2f(bw*scale, 77 * scale), Scalar(0, 0, 255), 2, 8);
